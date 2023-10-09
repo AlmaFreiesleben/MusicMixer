@@ -21,15 +21,8 @@ public class MusicMixerController : ControllerBase
         ("Jada", "Nudes", "Such a wonderful danish singer from Næver")
     };
 
-    private readonly ILogger<MusicMixerController> _logger;
-
-    public MusicMixerController(ILogger<MusicMixerController> logger)
-    {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetRandomMusicMix")]
-    public IEnumerable<Track> Get()
+    [HttpGet("get_random_music_mix")]
+    public IEnumerable<Track> GetRandomMusicList()
     {
         return Tracks.Select(track => new Track
         {
@@ -39,5 +32,16 @@ public class MusicMixerController : ControllerBase
             IsGoodWith = GoesWith.OrderBy(x => Guid.NewGuid()).Take(3).ToArray()
         })
         .ToArray();
+    }
+
+    [HttpGet("get_random_track")]
+    public Track GetTrack()
+    {
+        return new Track() {
+            Artist = "Rina Mushonga", 
+            Title = "NarciscO", 
+            Description = "Dansable and energetic always give a great mood", 
+            IsGoodWith = GoesWith.OrderBy(x => Guid.NewGuid()).Take(3).ToArray()
+        };
     }
 }
