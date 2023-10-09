@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using ConsoleTables;
 
 namespace HttpClientSample
 {
@@ -14,13 +15,17 @@ namespace HttpClientSample
     {
         static HttpClient client = new HttpClient();
 
-        static void ShowTrack(Track track)
-        {
-            Console.WriteLine($"Artist: {track.Artist}\tTitle: " +
-                $"{track.Title}\tDescription: {track.Description}");
+        private static void ShowTrack(Track track)
+        {            
+            var table = new ConsoleTable("Artist", "Title", "Description", "Goes With");
+            string goesWith = String.Join(", ", track.IsGoodWith.Select(p => p));
+            table.AddRow(track.Artist, track.Title, track.Description, goesWith);
+
+            table.Write(Format.Alternative);
+            Console.WriteLine();
         }
 
-        static async Task<Track> GetTrackAsync(string path)
+        private static async Task<Track> GetTrackAsync(string path)
         {
             Track track = null;
             HttpResponseMessage response = await client.GetAsync(path);
@@ -28,24 +33,23 @@ namespace HttpClientSample
             {
                 track = await response.Content.ReadAsAsync<Track>();
             }
-            return track;
+            return track != null ? track : throw new Exception();
         }
 
-        static void Main()
+        public static void Main()
         {
             RunAsync().GetAwaiter().GetResult();
         }
 
-        static async Task RunAsync()
+        private static async Task RunAsync()
         {
-            // Update port # in the following line.
             client.BaseAddress = new Uri("https://localhost:7190/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             try
             {
-                var track = await GetTrackAsync("MusicMixer");
+                var track = await GetTrackAsync("MusicMixer/get_random_track");
                 ShowTrack(track);
 
             }
