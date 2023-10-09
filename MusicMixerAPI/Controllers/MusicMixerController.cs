@@ -18,7 +18,8 @@ public class MusicMixerController : ControllerBase
         ("Queen", "I Want To Break Free", "Best Music Video"),
         ("Elton John", "Tiny Dancer", "The lyric 'Tiny dancer in my hand' always make me smile"), 
         ("Nick Cave and the bad seeds", "The wild rose", "what a wonderful song"),
-        ("Jada", "Nudes", "Such a wonderful danish singer from Næver")
+        ("Jada", "Nudes", "Such a wonderful danish singer from Næver"),
+        ("Rina Mushonga", "NarciscO", "Dansable and energetic always give a great mood")
     };
 
     [HttpGet("get_random_music_mix")]
@@ -37,10 +38,11 @@ public class MusicMixerController : ControllerBase
     [HttpGet("get_random_track")]
     public Track GetTrack()
     {
+        var track = Tracks[Random.Shared.Next(Tracks.Length)];
         return new Track() {
-            Artist = "Rina Mushonga", 
-            Title = "NarciscO", 
-            Description = "Dansable and energetic always give a great mood", 
+            Artist = track.artist, 
+            Title = track.title, 
+            Description = track.description, 
             IsGoodWith = GoesWith.OrderBy(x => Guid.NewGuid()).Take(3).ToArray()
         };
     }
