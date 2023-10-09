@@ -12,6 +12,15 @@ public class MusicMixerController : ControllerBase
         "Coffee", "Wine", "Sparkling Water", "Dancing", "Singing Along", "Tears", "Karaoke", "Friends", "Alone Time", "Developing Software"
     };
 
+    private static readonly (string artist,string title,string description)[] Tracks = new[]
+    {
+        ("Christine and the Queens", "People I've Been Sad", "Best number ever"), 
+        ("Queen", "I Want To Break Free", "Best Music Video"),
+        ("Elton John", "Tiny Dancer", "The lyric 'Tiny dancer in my hand' always make me smile"), 
+        ("Nick Cave and the bad seeds", "The wild rose", "what a wonderful song"),
+        ("Jada", "Nudes", "Such a wonderful danish singer from Næver")
+    };
+
     private readonly ILogger<MusicMixerController> _logger;
 
     public MusicMixerController(ILogger<MusicMixerController> logger)
@@ -22,12 +31,12 @@ public class MusicMixerController : ControllerBase
     [HttpGet(Name = "GetRandomMusicMix")]
     public IEnumerable<Track> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new Track
+        return Tracks.Select(track => new Track
         {
-            Artist = "Christine And The Queens",
-            Title = "People have been sad",
-            Description = "lorem ipsum", 
-            IsGoodWith = GoesWith.OrderBy(x => Guid.NewGuid()).Take(4).ToArray()
+            Artist = track.artist,
+            Title = track.title,
+            Description = track.description, 
+            IsGoodWith = GoesWith.OrderBy(x => Guid.NewGuid()).Take(3).ToArray()
         })
         .ToArray();
     }
