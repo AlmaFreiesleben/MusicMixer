@@ -17,15 +17,11 @@ namespace HttpClientSample
 
         public static void Main(string[] args)
         {
-            if (args.Length == 0) { RunAsync().GetAwaiter().GetResult(); }
-            else 
-            {
-                int num = int.Parse(args[0]);
-                RunAsync(num).GetAwaiter().GetResult();
-            }
+            int num = (args.Length == 0) ? 0 : int.Parse(args[0]);
+            RunAsync(num).GetAwaiter().GetResult();
         }
 
-        private static async Task RunAsync(int numberOfTracks)
+        private static async Task RunAsync(int numberOfTracks = 0)
         {
             client.BaseAddress = new Uri("https://localhost:7190/");
             client.DefaultRequestHeaders.Accept.Clear();
@@ -33,34 +29,24 @@ namespace HttpClientSample
 
             try
             {
-                ConsoleTable table = InitiateTable();
-                for (int i = 0; i < numberOfTracks; i++) 
+                // Either get all tracks from mock data or a random set of tracks with size of user specified argument
+                // defined by 'numberOfTracks'. 
+                if (numberOfTracks == 0) 
                 {
-                    var track = await GetTrackAsync("MusicMixer/get_random_track");
-                    AddTrackToTable(table, track);
+                    ConsoleTable table = InitiateTable();
+                    var tracks = await GetListOfTracksAsync("MusicMixer/get_music_mix");
+                    tracks.ToList().ForEach(t => AddTrackToTable(table, t));
+                    ShowTrackTable(table);
+                } else 
+                {
+                    ConsoleTable table = InitiateTable();
+                    for (int i = 0; i < numberOfTracks; i++) 
+                    {
+                        var track = await GetTrackAsync("MusicMixer/get_random_track");
+                        AddTrackToTable(table, track);
+                    }
+                    ShowTrackTable(table);
                 }
-                ShowTrackTable(table);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            Console.ReadLine();
-        }
-
-        private static async Task RunAsync()
-        {
-            client.BaseAddress = new Uri("https://localhost:7190/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            try
-            {
-                ConsoleTable table = InitiateTable();
-                var tracks = await GetListOfTracksAsync("MusicMixer/get_random_music_mix");
-                tracks.ToList().ForEach(t => AddTrackToTable(table, t));
-                ShowTrackTable(table);
             }
             catch (Exception e)
             {
