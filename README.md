@@ -23,7 +23,6 @@ There are two endpoints available:
 #### MusicMixerConsole
 1. Build and run the Console Application from terminal with following command: `dotnet run` or `dotnet run -- 4`.
     1. `dotnet run` returns the complete list of tracks from memory.
-   <img src="/Resources/dotnet%20run%20--%202.png" alt="The complete list of track as a table with 4 columns ("Artist", "Title", "Description", "Goes With")." width="200">
     ![The complete list of track as a table with 4 columns ("Artist", "Title", "Description", "Goes With").](/Resources/dotnet%20run%20--%202.png)
     3. `dotnet run -- 4` returns the user specified amount of tracks, in this case 4.
     ![Example of random track list of the size specified by the user, in this case 2.](/Resources/dotnet%20run.png)
