@@ -22,7 +22,7 @@ public class MusicMixerController : ControllerBase
         ("Rina Mushonga", "NarciscO", "My sisters and I heard this on repeat across the Bay of Biscay")
     };
 
-    [HttpGet("get_random_music_mix")]
+    [HttpGet("get_music_mix")]
     public IEnumerable<Track> GetRandomMusicList()
     {
         int i = Random.Shared.Next(1,GoesWith.Length / 2);
