@@ -28,6 +28,11 @@ There are two endpoints available:
     ![Example of random track list of the size specified by the user, in this case 2.](/Resources/dotnet%20run%20--%203.png)
 2. Press Ctrl+C at the terminal to stop the app.
 
+### Nuget packages necessary
+These nuget packages are part of the project. They can be installed from the terminal by running following commands:<br>
+    `dotnet add package ConsoleTables --version 2.4.2`<br>
+	`dotnet add package Microsoft.AspNet.WebApi.Client --version 5.2.9` </br>
+
 #### 🔭 Future work
 
 - API for database or use Spotify API.
