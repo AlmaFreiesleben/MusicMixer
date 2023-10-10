@@ -32,5 +32,7 @@ There are two endpoints available:
 
 - API for database or use Spotify API.
 - Better testing and errorhandling.
-- Containerize and setup CI pipeline. 
+- Containerize and setup CI pipeline.
+- Ensure that duplicated tracks are not allowed when calling the API with a user specified amount.
+    - Ensure that the API is not called more than necessary.
 
