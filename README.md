@@ -21,11 +21,11 @@ There are two endpoints available:
 3. Press Ctrl+C at the terminal to stop the app (don't do this before you are entirely done, the API needs to run to be consumed by the console application).
 
 #### MusicMixerConsole
-1. Build and run the Console Application from terminal with following command: `dotnet run` or `dotnet run -- 4`.
+1. Build and run the Console Application from terminal with following command: `dotnet run` or `dotnet run -- 3`.
     1. `dotnet run` returns the complete list of tracks from memory.
-    ![The complete list of track as a table with 4 columns ("Artist", "Title", "Description", "Goes With").](/Resources/dotnet%20run%20--%202.png)
-    3. `dotnet run -- 4` returns the user specified amount of tracks, in this case 4.
-    ![Example of random track list of the size specified by the user, in this case 2.](/Resources/dotnet%20run.png)
+    ![The complete list of track as a table with 4 columns ("Artist", "Title", "Description", "Goes With").](/Resources/dotnet%20run.png)
+    2. `dotnet run -- 3` returns the user specified amount of tracks, in this case 4.
+    ![Example of random track list of the size specified by the user, in this case 2.](/Resources/dotnet%20run%20--%203.png)
 2. Press Ctrl+C at the terminal to stop the app.
 
 #### 🔭 Future work
